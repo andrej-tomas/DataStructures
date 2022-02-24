@@ -15,55 +15,40 @@ public class MyLinkedList<T>
     }
 
     private Node? _head;
-    public Node? First => _head;
-    public Node? Next => _head.Next;
-
+    private int _count = 0;
+    public int Count => _count;
 
     public void Print()
     {
         Node currNode = _head;
-
-        while (currNode != null)
+        if(currNode != null)
         {
-            Console.Write(currNode.Value.ToString() + " -> ");
-            currNode = currNode.Next;            
-        }
-        Console.Write("null");
+            while (currNode != null)
+            {
+                Console.Write(currNode.Value.ToString() + " -> ");
+                currNode = currNode.Next;
+            }
+            Console.Write("null");
+        } else
+        {
+            Console.WriteLine("The list is empty...");
+        }      
     }
 
     public T Add(T item)
     {
         Node node = new(item);
 
-        if (_head == null)
-        {
-            _head = node;
-        }
-        else
-        {
-            Node last = _head;
-
-            while (last.Next != null)
-            {
-                last = last.Next;
-            }
-
-            last.Next = node;
-        }
+        node.Next = _head;
+        _head = node;
+        _count++;
 
         return node.Value;
     }
 
     public T Peek()
     {
-        Node node = _head;
-
-        while(node.Next != null)
-        {
-            node = node.Next;   
-        }
-
-        return node.Value;
+        return _head.Value;
     }
 }
 
